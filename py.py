@@ -55,3 +55,4 @@ while game:
     display.update()
     clock.tick(fps)
     
+print("fff")
