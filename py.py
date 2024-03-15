@@ -55,3 +55,7 @@ while game:
     display.update()
     clock.tick(fps)
     
+<<<<<<< HEAD
+=======
+print("less")
+>>>>>>> 5c172e999bbef25590fea70146f3c1989dd664b0
