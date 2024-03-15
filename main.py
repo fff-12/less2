@@ -47,9 +47,8 @@ class Player(GameSprite):
             self.rect.y += self.speed
 
 
-pic1 = Player("ufo_1.png", 5, win_height - 80, 65, 65, 10)
+pic1 = Player("ufo_1.png", 5, win_height - 80, 65, 65, 11)
 final = GameSprite("Asset 28@4x.png", win_width - 120, win_height - 80, 65, 65, 0)
-"""monster = Enemy('monster_4.png', win_width - 80, 280, 65, 65, 2)"""
 
 while game:
     time.delay(60)
