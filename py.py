@@ -12,19 +12,9 @@ display.set_caption("Maze")
 
 
 class GameSprite(sprite.Sprite):
-    def __init__(
-        self,
-        sprite_image,
-        sprite_x,
-        sprite_y,
-        sprite_wigth,
-        sprite_height,
-        sprite_speed,
-    ):
+    def __init__(self,sprite_image, sprite_x, sprite_y, sprite_wigth, sprite_height, sprite_speed):
         super().__init__()
-        self.image = transform.scale(
-            image.load(sprite_image), (sprite_wigth, sprite_height)
-        )
+        self.image = transform.scale(image.load(sprite_image), (sprite_wigth, sprite_height))
         self.rect = self.image.get_rect()
         self.rect.x = sprite_x
         self.rect.y = sprite_y
