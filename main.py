@@ -85,7 +85,7 @@ barriers.add(w2)
 
 
 #створюємо спрайти
-player = Player('ufo_1.png', 5, win_height - 80, 80, 80, 0, 0)
+player = Player('ufo_1.png', 10, win_height - 80, 80, 80, 0, 10)
 monster = GameSprite('monster_4.png', win_width - 80, 180, 80, 80)
 final_sprite = GameSprite('Asset 28@4x.png', win_width - 85, win_height - 100, 80, 80)
 
@@ -126,11 +126,11 @@ while run:
        # w2.reset()
        barriers.draw(window)
   
-   monster.reset()
-   final_sprite.reset()
-   player.reset()
+       monster.reset()
+       final_sprite.reset()
+       player.reset()
    #включаємо рух
-   player.update()
+       player.update()
    #Перевірка зіткнення героя з ворогом та стінами
    if sprite.collide_rect(player, monster):
        finish = True
@@ -139,14 +139,14 @@ while run:
        d = img.get_width() // img.get_height()
        window.fill((255, 255, 255))
        window.blit(transform.scale(img, (win_height * d, win_height)), (90, 0))
-       break
+       
 
    if sprite.collide_rect(player, final_sprite):
        finish = True
        img = image.load('thumb.jpg')
        window.fill((255, 255, 255))
        window.blit(transform.scale(img, (win_width, win_height)), (0, 0))
-       break 
+        
     #цикл спрацьовує кожну 0.05 секунд
-   time.delay(30)
+   time.delay(-9999)
    display.update()
