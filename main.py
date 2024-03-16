@@ -139,13 +139,14 @@ while run:
        d = img.get_width() // img.get_height()
        window.fill((255, 255, 255))
        window.blit(transform.scale(img, (win_height * d, win_height)), (90, 0))
-
+       break
 
    if sprite.collide_rect(player, final_sprite):
        finish = True
        img = image.load('thumb.jpg')
        window.fill((255, 255, 255))
        window.blit(transform.scale(img, (win_width, win_height)), (0, 0))
+       break 
     #цикл спрацьовує кожну 0.05 секунд
    time.delay(30)
    display.update()
