@@ -59,6 +59,10 @@ class Player(GameSprite):
                self.y_speed = 0 # при зіткненні зі стіною вертикальна швидкість гаситься
                self.rect.top = max(self.rect.top, p.rect.bottom) # вирівнюємо верхній край по нижніх краях стінок, на які наїхали
 
+   def fire(self):
+       bullet = Bullet("bullet.png", self.rect.right, self.rect.centery, 15, 20, 10)
+       bullets.add(bullet)
+
 class Enemy(GameSprite):
     direction = 'left'
     def __init__(self, sprite_image, sprite_x, sprite_y, size_x, size_y, enemy_speed):
@@ -75,8 +79,16 @@ class Enemy(GameSprite):
         else:
             self.rect.x += self.speed
 
+class Bullet(GameSprite):
+    def __init__(self, sprite_image, sprite_x, sprite_y, size_x, size_y, bullet_speed):
+        super().__init__(sprite_image, sprite_x, sprite_y, size_x, size_y)
+        self.speed = bullet_speed
 
-
+    def update(self):
+        self.rect.x += self.speed
+        if self.rect.x > win_width + 10:
+            self.kill()
+            
 #Створюємо віконц
 win_width = 700
 win_height = 500
@@ -87,7 +99,7 @@ background = transform.scale(image.load("starsbg.jpg"), (win_width, win_height))
 
 #Створюємо групу для стін
 barriers = sprite.Group()
-
+bullets = sprite.Group()
 
 #Створюємо стіни картинки
 w1 = GameSprite('platform.png',win_width/2 - win_width/3, win_height/2, 300, 50)
@@ -97,7 +109,6 @@ w2 = GameSprite('platform.png', 370, 100, 50, 400)
 #додаємо стіни до групи
 barriers.add(w1)
 barriers.add(w2)
-
 
 #створюємо спрайти
 player = Player('ufo_1.png', 10, win_height - 80, 80, 80, 0, 10)
@@ -124,10 +135,12 @@ while run:
                player.y_speed = -5
            elif e.key == K_s :
                player.y_speed = 5
+           elif e.key == K_SPACE:
+               player.fire()
        elif e.type == KEYUP:
            if e.key == K_a :
                player.x_speed = 0
-           elif e.key == K_d:
+           elif e.key == K_d:  
                player.x_speed = 0
            elif e.key == K_w:
                player.y_speed = 0
@@ -140,6 +153,8 @@ while run:
        # w1.reset()
        # w2.reset()
        barriers.draw(window)
+       bullets.draw(window)
+       sprite.groupcollide(bullets, barriers, True, False)
   
        monster.reset()
        monster.update()
@@ -147,6 +162,7 @@ while run:
        player.reset()
    #включаємо рух
        player.update()
+       bullets.update()
    #Перевірка зіткнення героя з ворогом та стінами
    if sprite.collide_rect(player, monster):
        finish = True
