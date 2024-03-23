@@ -59,10 +59,25 @@ class Player(GameSprite):
                self.y_speed = 0 # при зіткненні зі стіною вертикальна швидкість гаситься
                self.rect.top = max(self.rect.top, p.rect.bottom) # вирівнюємо верхній край по нижніх краях стінок, на які наїхали
 
+class Enemy(GameSprite):
+    direction = 'left'
+    def __init__(self, sprite_image, sprite_x, sprite_y, size_x, size_y, enemy_speed):
+        super().__init__(sprite_image, sprite_x, sprite_y, size_x, size_y)
+        self.speed = enemy_speed
+
+    def update(self):
+        if self.rect.x <= 420:
+            self.direction = 'right'
+        if self.rect.x >= win_width - 85:
+            self.direction = 'left'
+        if self.direction == 'left':
+            self.rect.x -= self.speed
+        else:
+            self.rect.x += self.speed
 
 
 
-#Створюємо віконце
+#Створюємо віконц
 win_width = 700
 win_height = 500
 display.set_caption("Лабіринт")
@@ -86,7 +101,7 @@ barriers.add(w2)
 
 #створюємо спрайти
 player = Player('ufo_1.png', 10, win_height - 80, 80, 80, 0, 10)
-monster = GameSprite('monster_4.png', win_width - 80, 180, 80, 80)
+monster = Enemy('monster_4.png', win_width - 80, 180, 80, 80, 5)
 final_sprite = GameSprite('Asset 28@4x.png', win_width - 85, win_height - 100, 80, 80)
 
 
@@ -127,6 +142,7 @@ while run:
        barriers.draw(window)
   
        monster.reset()
+       monster.update()
        final_sprite.reset()
        player.reset()
    #включаємо рух
