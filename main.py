@@ -101,22 +101,22 @@ while run:
        if e.type == QUIT:
            run = False
        elif e.type == KEYDOWN:
-           if e.key == K_LEFT:
+           if e.key == K_a:
                player.x_speed = -5
-           elif e.key == K_RIGHT:
+           elif e.key == K_d:
                player.x_speed = 5
-           elif e.key == K_UP :
+           elif e.key == K_w :
                player.y_speed = -5
-           elif e.key == K_DOWN :
+           elif e.key == K_s :
                player.y_speed = 5
        elif e.type == KEYUP:
-           if e.key == K_LEFT :
+           if e.key == K_a :
                player.x_speed = 0
-           elif e.key == K_RIGHT:
+           elif e.key == K_d:
                player.x_speed = 0
-           elif e.key == K_UP:
+           elif e.key == K_w:
                player.y_speed = 0
-           elif e.key == K_DOWN:
+           elif e.key == K_s:
                player.y_speed = 0
 
    if not finish:
@@ -148,5 +148,5 @@ while run:
        window.blit(transform.scale(img, (win_width, win_height)), (0, 0))
         
     #цикл спрацьовує кожну 0.05 секунд
-   time.delay(-9999)
+   time.delay(10)
    display.update()
