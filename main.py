@@ -34,7 +34,7 @@ class Player(GameSprite):
    ''' переміщає персонажа, застосовуючи поточну горизонтальну та вертикальну швидкість'''
    def update(self):
        # Спершу рух по горизонталі
-       if player.rect.x <= win_width-80 and player.x_speed > 0 or player.rect.x >= 0 and player.x_speed < 0:
+       if player.rect.x <= win_width-40 and player.x_speed > 0 or player.rect.x >= 0 and player.x_speed < 0:
            self.rect.x += self.x_speed
            # якщо зайшли за стінку, то встанемо впритул до стіни
        platforms_touched = sprite.spritecollide(self, barriers, False)
@@ -44,7 +44,7 @@ class Player(GameSprite):
        elif self.x_speed < 0: # йдемо ліворуч, ставимо лівий край персонажа впритул до правого краю стіни
            for p in platforms_touched:
                self.rect.left = max(self.rect.left, p.rect.right) # якщо торкнулися кількох стін, то лівий край - максимальний
-       if player.rect.y <= win_height-80 and player.y_speed > 0 or player.rect.y >= 0 and player.y_speed < 0:
+       if player.rect.y <= win_height-40 and player.y_speed > 0 or player.rect.y >= 0 and player.y_speed < 0:
            self.rect.y += self.y_speed
        # якщо зайшли за стінку, то встанемо впритул до стіни
        platforms_touched = sprite.spritecollide(self, barriers, False)
@@ -69,10 +69,11 @@ class Enemy(GameSprite):
         super().__init__(sprite_image, sprite_x, sprite_y, size_x, size_y)
         self.speed = enemy_speed
 
+
     def update(self):
         if self.rect.x <= 420:
             self.direction = 'right'
-        if self.rect.x >= win_width - 85:
+        if self.rect.x >= win_width - 40:
             self.direction = 'left'
         if self.direction == 'left':
             self.rect.x -= self.speed
@@ -83,6 +84,7 @@ class Bullet(GameSprite):
     def __init__(self, sprite_image, sprite_x, sprite_y, size_x, size_y, bullet_speed):
         super().__init__(sprite_image, sprite_x, sprite_y, size_x, size_y)
         self.speed = bullet_speed
+        self.image = transform.rotate(self.image, 90)
 
     def update(self):
         self.rect.x += self.speed
@@ -100,7 +102,7 @@ background = transform.scale(image.load("starsbg.jpg"), (win_width, win_height))
 #Створюємо групу для стін
 barriers = sprite.Group()
 bullets = sprite.Group()
-
+monsters = sprite.Group()
 #Створюємо стіни картинки
 w1 = GameSprite('platform.png',win_width/2 - win_width/3, win_height/2, 300, 50)
 w2 = GameSprite('platform.png', 370, 100, 50, 400)
@@ -111,9 +113,15 @@ barriers.add(w1)
 barriers.add(w2)
 
 #створюємо спрайти
-player = Player('ufo_1.png', 10, win_height - 80, 80, 80, 0, 10)
-monster = Enemy('monster_4.png', win_width - 80, 180, 80, 80, 5)
-final_sprite = GameSprite('Asset 28@4x.png', win_width - 85, win_height - 100, 80, 80)
+player = Player('ufo_1.png', 10, win_height - 80, 40, 40, 0, 10)
+
+monster = Enemy('monster_4.png', win_width - 80, 180, 40, 40, 3)
+monster1 = Enemy('monster_4.png', win_width - 80, 100, 40, 40, 2)
+
+monsters.add(monster)
+monsters.add(monster1)
+
+final_sprite = GameSprite('Asset 28@4x.png', win_width - 85, win_height - 100, 40, 40)
 
 
 #змінна, що відповідає за те, як закінчилася гра
@@ -154,21 +162,25 @@ while run:
        # w2.reset()
        barriers.draw(window)
        bullets.draw(window)
-       sprite.groupcollide(bullets, barriers, True, False)
-  
-       monster.reset()
-       monster.update()
+       monsters.draw(window)
+       
        final_sprite.reset()
        player.reset()
+
    #включаємо рух
        player.update()
        bullets.update()
+       monsters.update()
+
+       sprite.groupcollide(bullets, barriers, True, False)
+       sprite.groupcollide(monsters, bullets, True, True)
+
    #Перевірка зіткнення героя з ворогом та стінами
-   if sprite.collide_rect(player, monster):
+   if sprite.spritecollide(player, monsters, False):
        finish = True
        # обчислюємо ставлення
        img = image.load('gameover.jpg')
-       d = img.get_width() // img.get_height()
+       wd = img.get_width() // img.get_height()
        window.fill((255, 255, 255))
        window.blit(transform.scale(img, (win_height * d, win_height)), (90, 0))
        
