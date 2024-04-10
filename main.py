@@ -135,9 +135,14 @@ w6 = GameSprite("platform.png", 100, 420, 10, 90)
 w7 = GameSprite("platform.png", 140, 0, 10, 370)
 w99 = GameSprite("platform.png", 0, 100, 70, 10)
 w9 = GameSprite("platform.png", 210, 100, 500, 10)
-w10 = GameSprite("platform.png", 160, 420, 450, 10)
+w10 = GameSprite("platform.png", 160, 420, 700, 10)
 w11 = GameSprite("platform.png", 70, 100, 10, 270)
-w12 = GameSprite("platform.png", 140, 360, 450, 10)
+w12 = GameSprite("platform.png", 140, 360, 500, 10)
+w13 = GameSprite("platform.png", 630, 240, 10, 120)
+w14 = GameSprite("platform.png", 200, 240, 430, 10)
+w15 = GameSprite("platform.png", 400, 150, 10, 90)
+w16 = GameSprite("platform.png", 200, 240, 10, 70)
+w17 = GameSprite("platform.png", 200, 310, 380, 10)
 
 barriers.add(w1)
 barriers.add(w2)
@@ -151,6 +156,12 @@ barriers.add(w9)
 barriers.add(w10)
 barriers.add(w11)
 barriers.add(w12)
+barriers.add(w13)
+barriers.add(w14)
+barriers.add(w15)
+barriers.add(w16)
+barriers.add(w17)
+
 # створюємо спрайти
 player = Player("ufo_1.png", 10, win_height - 80, 40, 40, 0, 10)
 
@@ -160,7 +171,7 @@ monster1 = Enemy("monster_4.png", win_width - 80, 100, 40, 40, 2)
 monsters.add(monster)
 monsters.add(monster1)
 
-final_sprite = GameSprite("Asset 28@4x.png", 615, 37, 40, 40)
+final_sprite = GameSprite("Asset 28@4x.png", 610, 10, 80, 80)
 
 
 # змінна, що відповідає за те, як закінчилася гра
