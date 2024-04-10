@@ -142,7 +142,7 @@ w13 = GameSprite("platform.png", 630, 240, 10, 120)
 w14 = GameSprite("platform.png", 200, 240, 430, 10)
 w15 = GameSprite("platform.png", 400, 150, 10, 90)
 w16 = GameSprite("platform.png", 200, 240, 10, 70)
-w17 = GameSprite("platform.png", 200, 310, 380, 10)
+w17 = GameSprite("platform.png", 200, 300, 380, 10)
 
 barriers.add(w1)
 barriers.add(w2)
